@@ -69,11 +69,8 @@ services:
   mysql-exporter:
     image: prom/mysqld-exporter
     container_name: nestjs-mysql-exporter
-    environment:
-      DATA_SOURCE_NAME: root:root@tcp(mysql:3306)/
     command: 
      - --config.my-cnf=/cfg/.my.cnf
-     - --mysqld.address=192.168.18.226:3306
     volumes:
       - "./.my.cnf:/cfg/.my.cnf"
     ports:
