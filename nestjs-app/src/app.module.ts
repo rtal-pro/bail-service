@@ -6,10 +6,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { EnterpriseModule } from './enterprise/enterprise.module';
+import { DevtoolsModule } from '@nestjs/devtools-integration';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    DevtoolsModule.register({
+      http: process.env.NODE_ENV !== 'production',
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST || 'mysql',

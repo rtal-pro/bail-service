@@ -7,6 +7,7 @@
 generator client {
   provider = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-1.1.x"]
+  previewFeatures = ["metrics"]
 }
 
 datasource db {
@@ -17,13 +18,160 @@ datasource db {
 model Enterprise {
   id        Int      @id @default(autoincrement())
   email     String   @unique
+  phone     String   @unique
+  admin     Admin[]
+  provider  Provider[]
   name      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  roles     Role
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  phone     String   @unique
+
+  firstName String
+  lastName  String
+  password  String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  enterprise Enterprise @relation(fields: [enterpriseId], references: [id])
+  enterpriseId Int
+}
+
+model Provider {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  phone     String   @unique
+  logo      String
+
+  firstName String?
+  lastName  String?
+  companyName String?
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  enterprise Enterprise @relation(fields: [enterpriseId], references: [id])
+  enterpriseId Int
+
+  taskTemplate TaskTemplate[]
+  task Task[]
+  ProviderType providerType @default(OTHER)
+}
+
+model TaskTemplate {
+  id        Int      @id @default(autoincrement())
+  title     String
+  description String
+  status    String @default("PENDING")
+  taskType  TaskType
+  duration  Int
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  provider Provider @relation(fields: [providerId], references: [id])
+  providerId Int
+
+  providerType providerType @default(OTHER)
+}
+
+model Task {
+  id        Int      @id @default(autoincrement())
+  title     String
+  description String
+  status    ProgramationStatus
+
+  taskType  TaskType
+  duration  Int
+
+  startDate DateTime
+  endDate   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  provider Provider @relation(fields: [providerId], references: [id])
+  providerId Int
+
+  spot Spot @relation(fields: [spotId], references: [id])
+  spotId Int
+}
+
+model BuildingCluster{
+  id  Int @id @default(autoincrement())
+  latitude Decimal
+  longitude Decimal
+  city String
+  country String
+  buildings Building[]
+  description String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Building{
+  id Int @id @default(autoincrement())
+  latitude Decimal
+  longitude Decimal
+  city String
+  country String
+  buildingCluster BuildingCluster @relation(fields: [buildingClusterId], references: [id])
+  buildingClusterId Int
+  spots Spot[]
+  description String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Spot{
+  id Int @id @default(autoincrement())
+  latitude Decimal
+  longitude Decimal
+  city String
+  country String
+  building Building @relation(fields: [buildingId], references: [id])
+  buildingId Int
+  description String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tasks Task[]
 }
 
 enum Role {
+  SUPER_ADMIN
   ADMIN
   USER
+}
+
+enum ProgramationStatus {
+  NOT_PROGRAMMED
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  MISSED
+}
+
+enum TaskType {
+  RECURRING
+  ONE_TIME
+}
+
+enum providerType {
+  CLEANER
+  ELECTRICIAN
+  PLUMBER
+  CARPENTER
+  PAINTER
+  GARDENER
+  PEST_CONTROL
+  APPLIANCE_REPAIR
+  COMPUTER_REPAIR
+  MOBILE_REPAIR
+  OTHER
 }
