@@ -7,6 +7,13 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { EnterpriseModule } from './enterprise/enterprise.module';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
+import { ProviderModule } from './provider/provider.module';
+import { TaskModule } from './task/task.module';
+import { AdminModule } from './admin/admin.module';
+import { TaskTemplateModule } from './task-template/task-template.module';
+import { BuildingClusterModule } from './building-cluster/building-cluster.module';
+import { BuildingModule } from './building/building.module';
+import { SpotModule } from './spot/spot.module';
 
 @Module({
   imports: [
@@ -29,6 +36,13 @@ import { DevtoolsModule } from '@nestjs/devtools-integration';
     PrometheusModule.register(),
     DatabaseModule,
     EnterpriseModule,
+    ProviderModule,
+    TaskModule,
+    AdminModule,
+    TaskTemplateModule,
+    BuildingClusterModule,
+    BuildingModule,
+    SpotModule,
   ],
   controllers: [AppController],
   providers: [AppService],

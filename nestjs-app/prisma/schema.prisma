@@ -25,6 +25,7 @@ model Enterprise {
   updatedById  Int
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
 }
 
 model Admin {
@@ -37,6 +38,7 @@ model Admin {
   role              Role               @default(ADMIN)
   enterprise        Enterprise?        @relation(fields: [enterpriseId], references: [id])
   enterpriseId      Int?
+  deletedAt    DateTime?
   
   // Relations to track who created or updated entities
   enterprisesCreated Enterprise[]      @relation("EnterpriseCreatedBy")
@@ -70,6 +72,23 @@ model Admin {
   updatedAt          DateTime           @updatedAt
 }
 
+model User {
+  id           Int                @id @default(autoincrement())
+  email        String             @unique
+  phone        String             @unique
+  firstName    String
+  lastName     String
+  password     String
+  role         Role               @default(USER)
+  Provider     Provider           @relation(fields: [providerId], references: [id])
+  providerId   Int
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
+  taskComments TaskComment[]
+  taskHistories TaskHistory[]
+}
+
 model Provider {
   id           Int                @id @default(autoincrement())
   email        String             @unique
@@ -92,6 +111,8 @@ model Provider {
   updatedById  Int
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
+  User         User[]
 }
 
 model TaskTemplate {
@@ -110,6 +131,7 @@ model TaskTemplate {
   updatedById  Int
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
 }
 
 model Task {
@@ -131,6 +153,40 @@ model Task {
   updatedById  Int
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
+  TaskComment  TaskComment[]
+  TaskHistory  TaskHistory[]
+  TaskAttachment TaskAttachment[]
+}
+
+model TaskComment {
+  id        Int     @id @default(autoincrement())
+  comment   String
+  task      Task    @relation(fields: [taskId], references: [id])
+  taskId    Int
+  author    User  @relation(fields: [authorId], references: [id])
+  authorId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TaskHistory {
+  id        Int       @id @default(autoincrement())
+  task      Task      @relation(fields: [taskId], references: [id])
+  taskId    Int
+  status    ProgramationStatus
+  changeDate DateTime @default(now())
+  changedBy User  @relation(fields: [changedById], references: [id])
+  changedById Int
+}
+
+model TaskAttachment {
+  id        Int       @id @default(autoincrement())
+  url       String
+  task      Task      @relation(fields: [taskId], references: [id])
+  taskId    Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model BuildingCluster {
@@ -150,6 +206,7 @@ model BuildingCluster {
   ClusterStatistics ClusterStatistics[]
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
 }
 
 model Building {
@@ -171,6 +228,7 @@ model Building {
   updatedById  Int
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
 }
 
 model Spot {
@@ -197,6 +255,7 @@ model Spot {
   updatedById  Int
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
 }
 
 model QRCode {
@@ -213,6 +272,7 @@ model QRCode {
   updatedById  Int
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
 }
 
 model NFCTag {
@@ -229,6 +289,7 @@ model NFCTag {
   updatedById  Int
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
 }
 
 model RFIDTag {
@@ -245,6 +306,7 @@ model RFIDTag {
   updatedById  Int
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
 }
 
 model Beacon {
@@ -261,6 +323,7 @@ model Beacon {
   updatedById  Int
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
 }
 
 model GeoFence {
@@ -276,6 +339,7 @@ model GeoFence {
   updatedById  Int
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
 }
 
 model Report {
@@ -291,6 +355,7 @@ model Report {
   updatedById  Int
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  deletedAt    DateTime?
 }
 
 model TaskStatistics {
@@ -306,6 +371,7 @@ model TaskStatistics {
   averageCompletionTime Decimal   @default(0.0)
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
+  
 }
 
 model ClusterStatistics {
