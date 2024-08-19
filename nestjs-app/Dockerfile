@@ -20,4 +20,4 @@ RUN mkdir -p /app/dist && chown -R node:node /app && chown -R node:node /app/nod
 USER node
 
 # Run the web service on container startup.
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start:dev", "apt-get", "install", "zsh", "zsh-autosuggestions", "zsh-syntax-highlighting", "zsh-theme-powerlevel10k"]
