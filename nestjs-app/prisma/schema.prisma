@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Enterprise {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   name         String?            @unique
   email        String             @unique
   phone        String             @unique
@@ -20,16 +20,16 @@ model Enterprise {
   spots        Spot[]
   reports      Report[]
   createdBy    Admin              @relation("EnterpriseCreatedBy", fields: [createdById], references: [id])
-  createdById  Int
+  createdById  String
   updatedBy    Admin              @relation("EnterpriseUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  Int
+  updatedById  String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
 }
 
 model Admin {
-  id                Int                @id @default(autoincrement())
+  id                String             @id @default(cuid())
   email             String             @unique
   phone             String             @unique
   firstName         String
@@ -37,7 +37,7 @@ model Admin {
   password          String
   role              Role               @default(ADMIN)
   enterprise        Enterprise?        @relation(fields: [enterpriseId], references: [id])
-  enterpriseId      Int?
+  enterpriseId      String?
   deletedAt    DateTime?
   
   // Relations to track who created or updated entities
@@ -73,7 +73,7 @@ model Admin {
 }
 
 model User {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   email        String             @unique
   phone        String             @unique
   firstName    String
@@ -81,7 +81,7 @@ model User {
   password     String
   role         Role               @default(USER)
   Provider     Provider           @relation(fields: [providerId], references: [id])
-  providerId   Int
+  providerId   String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -90,7 +90,7 @@ model User {
 }
 
 model Provider {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   email        String             @unique
   phone        String             @unique
   firstName    String?
@@ -101,14 +101,14 @@ model Provider {
   role         Role               @default(USER)
   providerType ProviderType       @default(OTHER)
   enterprise   Enterprise         @relation(fields: [enterpriseId], references: [id])
-  enterpriseId Int
+  enterpriseId String
   ProviderStatistics ProviderStatistics[]
   taskTemplate TaskTemplate[]
   tasks        Task[]
   createdBy    Admin              @relation("ProviderCreatedBy", fields: [createdById], references: [id])
-  createdById  Int
+  createdById  String
   updatedBy    Admin              @relation("ProviderUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  Int
+  updatedById  String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -116,26 +116,26 @@ model Provider {
 }
 
 model TaskTemplate {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   title        String
   description  String
   status       TaskTemplateStatus @default(PENDING)
   taskType     TaskType
   duration     Int
   provider     Provider           @relation(fields: [providerId], references: [id])
-  providerId   Int
+  providerId   String
   providerType ProviderType       @default(OTHER)
   createdBy    Admin              @relation("TaskTemplateCreatedBy", fields: [createdById], references: [id])
-  createdById  Int
+  createdById  String
   updatedBy    Admin              @relation("TaskTemplateUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  Int
+  updatedById  String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
 }
 
 model Task {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   title        String
   description  String
   status       ProgramationStatus
@@ -144,13 +144,13 @@ model Task {
   startDate    DateTime
   endDate      DateTime
   provider     Provider           @relation(fields: [providerId], references: [id])
-  providerId   Int
+  providerId   String
   spot         Spot               @relation(fields: [spotId], references: [id])
-  spotId       Int
+  spotId       String
   createdBy    Admin              @relation("TaskCreatedBy", fields: [createdById], references: [id])
-  createdById  Int
+  createdById  String
   updatedBy    Admin              @relation("TaskUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  Int
+  updatedById  String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -163,9 +163,9 @@ model TaskComment {
   id        Int     @id @default(autoincrement())
   comment   String
   task      Task    @relation(fields: [taskId], references: [id])
-  taskId    Int
+  taskId    String
   author    User  @relation(fields: [authorId], references: [id])
-  authorId  Int
+  authorId  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -173,24 +173,24 @@ model TaskComment {
 model TaskHistory {
   id        Int       @id @default(autoincrement())
   task      Task      @relation(fields: [taskId], references: [id])
-  taskId    Int
+  taskId    String
   status    ProgramationStatus
   changeDate DateTime @default(now())
   changedBy User  @relation(fields: [changedById], references: [id])
-  changedById Int
+  changedById String
 }
 
 model TaskAttachment {
   id        Int       @id @default(autoincrement())
   url       String
   task      Task      @relation(fields: [taskId], references: [id])
-  taskId    Int
+  taskId    String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
 
 model BuildingCluster {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   latitude     Decimal
   longitude    Decimal
   city         String
@@ -198,11 +198,11 @@ model BuildingCluster {
   buildings    Building[]
   description  String
   enterprise   Enterprise         @relation(fields: [enterpriseId], references: [id])
-  enterpriseId Int
+  enterpriseId String
   createdBy    Admin              @relation("BuildingClusterCreatedBy", fields: [createdById], references: [id])
-  createdById  Int
+  createdById  String
   updatedBy    Admin              @relation("BuildingClusterUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  Int
+  updatedById  String
   ClusterStatistics ClusterStatistics[]
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
@@ -210,7 +210,7 @@ model BuildingCluster {
 }
 
 model Building {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   latitude     Decimal
   longitude    Decimal
   city         String
@@ -219,29 +219,29 @@ model Building {
   buildingStats BuildingStatistics[]
   description  String
   buildingCluster BuildingCluster? @relation(fields: [buildingClusterId], references: [id])
-  buildingClusterId Int?
+  buildingClusterId String?
   enterprise   Enterprise         @relation(fields: [enterpriseId], references: [id])
-  enterpriseId Int
+  enterpriseId String
   createdBy    Admin              @relation("BuildingCreatedBy", fields: [createdById], references: [id])
-  createdById  Int
+  createdById  String
   updatedBy    Admin              @relation("BuildingUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  Int
+  updatedById  String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
 }
 
 model Spot {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   latitude     Decimal
   longitude    Decimal
   city         String
   country      String
   building     Building?          @relation(fields: [buildingId], references: [id])
-  buildingId   Int?
+  buildingId   String?
   description  String
   enterprise   Enterprise         @relation(fields: [enterpriseId], references: [id])
-  enterpriseId Int
+  enterpriseId String
   tasks        Task[]
   qrCodes      QRCode[]
   nfcTags      NFCTag[]
@@ -250,109 +250,109 @@ model Spot {
   geoFences    GeoFence[]
   SpotStatistics SpotStatistics[]
   createdBy    Admin              @relation("SpotCreatedBy", fields: [createdById], references: [id])
-  createdById  Int
+  createdById  String
   updatedBy    Admin              @relation("SpotUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  Int
+  updatedById  String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
 }
 
 model QRCode {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   code         String             @unique
   color        String
   size         Int
   text         String?
   spot         Spot               @relation(fields: [spotId], references: [id])
-  spotId       Int
+  spotId       String
   createdBy    Admin              @relation("QRCodeCreatedBy", fields: [createdById], references: [id])
-  createdById  Int
+  createdById  String
   updatedBy    Admin              @relation("QRCodeUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  Int
+  updatedById  String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
 }
 
 model NFCTag {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   tag          String             @unique
   color        String
   size         Int
   text         String?
   spot         Spot               @relation(fields: [spotId], references: [id])
-  spotId       Int
+  spotId       String
   createdBy    Admin              @relation("NFCTagCreatedBy", fields: [createdById], references: [id])
-  createdById  Int
+  createdById  String
   updatedBy    Admin              @relation("NFCTagUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  Int
+  updatedById  String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
 }
 
 model RFIDTag {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   tag          String             @unique
   color        String
   size         Int
   text         String?
   spot         Spot               @relation(fields: [spotId], references: [id])
-  spotId       Int
+  spotId       String
   createdBy    Admin              @relation("RFIDTagCreatedBy", fields: [createdById], references: [id])
-  createdById  Int
+  createdById  String
   updatedBy    Admin              @relation("RFIDTagUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  Int
+  updatedById  String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
 }
 
 model Beacon {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   uuid         String             @unique
   major        Int
   minor        Int
   color        String
   spot         Spot               @relation(fields: [spotId], references: [id])
-  spotId       Int
+  spotId       String
   createdBy    Admin              @relation("BeaconCreatedBy", fields: [createdById], references: [id])
-  createdById  Int
+  createdById  String
   updatedBy    Admin              @relation("BeaconUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  Int
+  updatedById  String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
 }
 
 model GeoFence {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   latitude     Decimal
   longitude    Decimal
   radius       Int
   spot         Spot               @relation(fields: [spotId], references: [id])
-  spotId       Int
+  spotId       String
   createdBy    Admin              @relation("GeoFenceCreatedBy", fields: [createdById], references: [id])
-  createdById  Int
+  createdById  String
   updatedBy    Admin              @relation("GeoFenceUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  Int
+  updatedById  String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
 }
 
 model Report {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   title        String
   content      String
   generatedAt  DateTime           @default(now())
   enterprise   Enterprise         @relation(fields: [enterpriseId], references: [id])
-  enterpriseId Int
+  enterpriseId String
   createdBy    Admin              @relation("ReportCreatedBy", fields: [createdById], references: [id])
-  createdById  Int
+  createdById  String
   updatedBy    Admin              @relation("ReportUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  Int
+  updatedById  String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -382,7 +382,7 @@ model ClusterStatistics {
   activeTasks        Int       @default(0)
   completedTasks     Int       @default(0)
   buildingCluster    BuildingCluster @relation(fields: [buildingClusterId], references: [id])
-  buildingClusterId  Int       @unique
+  buildingClusterId  String       @unique
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 }
@@ -395,14 +395,14 @@ model ProviderStatistics {
   averageResponseTime Decimal   @default(0.0)
   totalHoursWorked    Decimal   @default(0.0)
   provider            Provider  @relation(fields: [providerId], references: [id])
-  providerId          Int       @unique
+  providerId          String       @unique
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
 }
 
 model BuildingStatistics {
   id              Int       @id @default(autoincrement())
-  buildingId      Int       @unique
+  buildingId      String       @unique
   totalSpots      Int       @default(0)
   totalTasks      Int       @default(0)
   totalProviders  Int       @default(0)
@@ -414,7 +414,7 @@ model BuildingStatistics {
 
 model SpotStatistics {
   id             Int       @id @default(autoincrement())
-  spotId         Int       @unique
+  spotId         String       @unique
   totalTasks     Int       @default(0)
   completedTasks Int       @default(0)
   missedTasks    Int       @default(0)

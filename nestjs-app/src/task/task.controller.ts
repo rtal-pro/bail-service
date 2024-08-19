@@ -30,4 +30,12 @@ export class TaskController {
   remove(@Param('id') id: string) {
     return this.taskService.remove(+id);
   }
+
+  @Post('spot/:spotId')
+  async createTask(
+    @Param('spotId') spotId: number,
+    @Body() createTaskDto: Prisma.TaskCreateWithoutSpotInput
+  ) {
+    return this.taskService.createTask(createTaskDto, spotId);
+  }
 }

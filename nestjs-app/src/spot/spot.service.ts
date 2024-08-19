@@ -26,4 +26,15 @@ export class SpotService {
   async remove(id: number) {
     return this.databaseService.spot.delete({where: {id}});
   }
+
+  async createTask(createTaskDto: Prisma.TaskCreateWithoutSpotInput, spotId: number) {
+    return this.databaseService.task.create({
+      data: {
+        ...createTaskDto,
+        spot: {
+          connect: { id: spotId },
+        },
+      },
+    });
+  }
 }

@@ -26,4 +26,15 @@ export class BuildingClusterService {
   async remove(id: number) {
     return this.databaseService.buildingCluster.delete({where: {id}});
   }
+
+  async addBuildingToCluster(clusterId: number, buildingId: number) {
+    return this.databaseService.building.update({
+      where: { id: buildingId },
+      data: {
+        buildingCluster: {
+          connect: { id: clusterId },
+        },
+      },
+    });
+  }
 }

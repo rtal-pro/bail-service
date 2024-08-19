@@ -26,4 +26,15 @@ export class BuildingService {
   async remove(id: number) {
     return this.databaseService.building.delete({where: {id}});
   }
+
+  async addSpotToBuilding(buildingId: number, createSpotDto: Prisma.SpotCreateWithoutBuildingInput) {
+    return this.databaseService.spot.create({
+      data: {
+        ...createSpotDto,
+        building: {
+          connect: { id: buildingId }
+        }
+      }
+    });
+  }
 }

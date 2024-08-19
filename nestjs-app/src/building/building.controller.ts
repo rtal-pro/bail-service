@@ -4,7 +4,7 @@ import { Prisma } from '@prisma/client';
 
 @Controller('building')
 export class BuildingController {
-  constructor(private readonly buildingService: BuildingService) {}
+  constructor(private readonly buildingService: BuildingService) { }
 
   @Post()
   create(@Body() createBuildingDto: Prisma.BuildingCreateInput) {
@@ -29,5 +29,13 @@ export class BuildingController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.buildingService.remove(+id);
+  }
+
+  @Post(':id/spots')
+  async addSpot(
+    @Param('id') buildingId: number,
+    @Body() createSpotDto: Prisma.SpotCreateWithoutBuildingInput
+  ) {
+    return this.buildingService.addSpotToBuilding(buildingId, createSpotDto);
   }
 }

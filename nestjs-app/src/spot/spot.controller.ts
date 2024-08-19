@@ -30,4 +30,5 @@ export class SpotController {
   remove(@Param('id') id: string) {
     return this.spotService.remove(+id);
   }
+
 }

@@ -4,7 +4,7 @@ import { Prisma } from '@prisma/client';
 
 @Controller('building-cluster')
 export class BuildingClusterController {
-  constructor(private readonly buildingClusterService: BuildingClusterService) {}
+  constructor(private readonly buildingClusterService: BuildingClusterService) { }
 
   @Post()
   create(@Body() createBuildingClusterDto: Prisma.BuildingClusterCreateInput) {
@@ -29,5 +29,14 @@ export class BuildingClusterController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.buildingClusterService.remove(+id);
+  }
+
+  //add building to cluster
+  @Post(':clusterId/buildings/:buildingId')
+  async addBuilding(
+    @Param('clusterId') clusterId: number,
+    @Param('buildingId') buildingId: number
+  ) {
+    return this.buildingClusterService.addBuildingToCluster(clusterId, buildingId);
   }
 }
