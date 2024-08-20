@@ -16,24 +16,24 @@ export class BuildingController {
     return this.buildingService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.buildingService.findOne(+id);
+  @Get(':cuid')
+  findOne(@Param('cuid') cuid: string) {
+    return this.buildingService.findOne(cuid);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBuildingDto: Prisma.BuildingUpdateInput) {
-    return this.buildingService.update(+id, updateBuildingDto);
+  @Patch(':cuid')
+  update(@Param('cuid') cuid: string, @Body() updateBuildingDto: Prisma.BuildingUpdateInput) {
+    return this.buildingService.update(cuid, updateBuildingDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.buildingService.remove(+id);
+  @Delete(':cuid')
+  remove(@Param('cuid') cuid: string) {
+    return this.buildingService.remove(cuid);
   }
 
-  @Post(':id/spots')
+  @Post(':cuid/spots')
   async addSpot(
-    @Param('id') buildingId: number,
+    @Param('cuid') buildingId: string,
     @Body() createSpotDto: Prisma.SpotCreateWithoutBuildingInput
   ) {
     return this.buildingService.addSpotToBuilding(buildingId, createSpotDto);

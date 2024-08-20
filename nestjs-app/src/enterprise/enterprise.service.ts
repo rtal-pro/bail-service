@@ -15,15 +15,15 @@ export class EnterpriseService {
     return this.databaseService.enterprise.findMany();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return this.databaseService.enterprise.findUnique({where: {id}});
   }
 
-  async update(id: number, updateEnterpriseDto: Prisma.EnterpriseUpdateInput) {
+  async update(id: string, updateEnterpriseDto: Prisma.EnterpriseUpdateInput) {
     return this.databaseService.enterprise.update({where: {id}, data: updateEnterpriseDto});
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return this.databaseService.enterprise.delete({where: {id}});
   }
 }

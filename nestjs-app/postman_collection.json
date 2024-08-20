@@ -1,0 +1,969 @@
+{
+  "info": {
+    "name": "Prisma CRUD Operations with Tests",
+    "description": "A collection of all CRUD routes for the Prisma entities with ID capturing and tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Create Admin",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"phone\": \"+123456789\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"password\": \"password\",\n  \"role\": \"ADMIN\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"adminId\", jsonData.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Admin",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/admin/{{adminId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"updated_admin@example.com\",\n  \"phone\": \"+987654321\",\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get All Admins",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Admin by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/{{adminId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Admin",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/admin/{{adminId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Enterprise",
+      "item": [
+        {
+          "name": "Create Enterprise",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/enterprise",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Enterprise Name\",\n  \"email\": \"enterprise@example.com\",\n  \"phone\": \"+123456789\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"enterpriseId\", jsonData.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Enterprise",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/enterprise/{{enterpriseId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Enterprise Name\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get All Enterprises",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/enterprise"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Enterprise by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/enterprise/{{enterpriseId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Enterprise",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/enterprise/{{enterpriseId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Building Cluster",
+      "item": [
+        {
+          "name": "Create Building Cluster",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/building-cluster",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"city\": \"City Name\",\n  \"country\": \"Country Name\",\n  \"latitude\": 12.34,\n  \"longitude\": 56.78\n, \"enterpriseId\": \"{{enterpriseId}}\"\n, \"description\": \"Building Cluster Description\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"clusterId\", jsonData.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Building Cluster",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/building-cluster/{{clusterId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"city\": \"Updated City Name\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get All Building Clusters",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/building-cluster"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Building Cluster by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/building-cluster/{{clusterId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Building Cluster",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/building-cluster/{{clusterId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Building",
+      "item": [
+        {
+          "name": "Create Building",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/building",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"city\": \"City Name\",\n  \"country\": \"Country Name\",\n  \"latitude\": 12.34,\n  \"longitude\": 56.78,\n  \"buildingClusterId\": \"{{clusterId}}\"\n, \"description\": \"Building Description\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"buildingId\", jsonData.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Building",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/building/{{buildingId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"city\": \"Updated City Name\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get All Buildings",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/building"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Building by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/building/{{buildingId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Building",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/building/{{buildingId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Spot",
+      "item": [
+        {
+          "name": "Create Spot",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/spot",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"latitude\": 12.34,\n  \"longitude\": 56.78,\n  \"city\": \"City Name\",\n  \"country\": \"Country Name\",\n  \"buildingId\": \"{{buildingId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"spotId\", jsonData.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Spot",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/spot/{{spotId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"city\": \"Updated City Name\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get All Spots",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/spot"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Spot by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/spot/{{spotId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Spot",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/spot/{{spotId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "item": [
+        {
+          "name": "Create Task",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/task",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Inspect HVAC system\",\n  \"description\": \"Regular inspection of the HVAC system.\",\n  \"status\": \"PENDING\",\n  \"taskType\": \"RECURRING\",\n  \"duration\": 120,\n  \"startDate\": \"2024-08-25T09:00:00.000Z\",\n  \"endDate\": \"2024-08-25T11:00:00.000Z\",\n  \"providerId\": \"{{providerId}}\",\n  \"spotId\": \"{{spotId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"taskId\", jsonData.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Task",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/task/{{taskId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Task Title\",\n  \"status\": \"IN_PROGRESS\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get All Tasks",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/task"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Task by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/task/{{taskId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Task",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/task/{{taskId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "TaskTemplate",
+      "item": [
+        {
+          "name": "Create TaskTemplate",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/task-template",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Standard Maintenance\",\n  \"description\": \"Standard maintenance task template\",\n  \"status\": \"PENDING\",\n  \"taskType\": \"RECURRING\",\n  \"duration\": 60,\n  \"providerId\": \"{{providerId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"taskTemplateId\", jsonData.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update TaskTemplate",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/task-template/{{taskTemplateId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Task Template Title\",\n  \"status\": \"APPROVED\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get All TaskTemplates",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/task-template"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get TaskTemplate by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/task-template/{{taskTemplateId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete TaskTemplate",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/task-template/{{taskTemplateId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Provider",
+      "item": [
+        {
+          "name": "Create Provider",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/provider",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"provider@example.com\",\n  \"phone\": \"+123456789\",\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"companyName\": \"Service Co.\",\n  \"password\": \"password\",\n  \"role\": \"USER\",\n  \"providerType\": \"HVAC\",\n  \"enterpriseId\": \"{{enterpriseId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"providerId\", jsonData.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Provider",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/provider/{{providerId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Updated Name\",\n  \"companyName\": \"Updated Service Co.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get All Providers",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/provider"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Provider by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/provider/{{providerId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Provider",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/provider/{{providerId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

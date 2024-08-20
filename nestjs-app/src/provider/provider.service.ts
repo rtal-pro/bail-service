@@ -15,15 +15,15 @@ export class ProviderService {
     return this.databaseService.provider.findMany();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return this.databaseService.provider.findUnique({where: {id}});
   }
 
-  async update(id: number, updateProviderDto: Prisma.ProviderUpdateInput) {
+  async update(id: string, updateProviderDto: Prisma.ProviderUpdateInput) {
     return this.databaseService.provider.update({where: {id}, data: updateProviderDto});
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return this.databaseService.provider.delete({where: {id}});
   }
 }

@@ -16,18 +16,18 @@ export class AdminController {
     return this.adminService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.adminService.findOne(+id);
+  @Get(':cuid')
+  findOne(@Param('cuid') cuid: string) {
+    return this.adminService.findOne(cuid);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAdminDto: Prisma.AdminUpdateInput) {
-    return this.adminService.update(+id, updateAdminDto);
+  @Patch(':cuid')
+  update(@Param('cuid') cuid: string, @Body() updateAdminDto: Prisma.AdminUpdateInput) {
+    return this.adminService.update(cuid, updateAdminDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.adminService.remove(+id);
+  @Delete(':cuid')
+  remove(@Param('cuid') cuid: string) {
+    return this.adminService.remove(cuid);
   }
 }

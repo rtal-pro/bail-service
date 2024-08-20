@@ -18,16 +18,16 @@ export class ProviderController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.providerService.findOne(+id);
+    return this.providerService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProviderDto: Prisma.ProviderUpdateInput) {
-    return this.providerService.update(+id, updateProviderDto);
+    return this.providerService.update(id, updateProviderDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.providerService.remove(+id);
+    return this.providerService.remove(id);
   }
 }

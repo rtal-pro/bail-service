@@ -18,22 +18,22 @@ export class TaskController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.taskService.findOne(+id);
+    return this.taskService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTaskDto: Prisma.TaskUpdateInput) {
-    return this.taskService.update(+id, updateTaskDto);
+    return this.taskService.update(id, updateTaskDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.taskService.remove(+id);
+    return this.taskService.remove(id);
   }
 
   @Post('spot/:spotId')
   async createTask(
-    @Param('spotId') spotId: number,
+    @Param('spotId') spotId: string,
     @Body() createTaskDto: Prisma.TaskCreateWithoutSpotInput
   ) {
     return this.taskService.createTask(createTaskDto, spotId);

@@ -15,19 +15,19 @@ export class SpotService {
     return this.databaseService.spot.findMany();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return this.databaseService.spot.findUnique({where: {id}});
   }
 
-  async update(id: number, updateSpotDto: Prisma.SpotUpdateInput) {
+  async update(id: string, updateSpotDto: Prisma.SpotUpdateInput) {
     return this.databaseService.spot.update({where: {id}, data: updateSpotDto});
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return this.databaseService.spot.delete({where: {id}});
   }
 
-  async createTask(createTaskDto: Prisma.TaskCreateWithoutSpotInput, spotId: number) {
+  async createTask(createTaskDto: Prisma.TaskCreateWithoutSpotInput, spotId: string) {
     return this.databaseService.task.create({
       data: {
         ...createTaskDto,

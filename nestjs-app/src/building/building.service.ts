@@ -15,19 +15,19 @@ export class BuildingService {
     return this.databaseService.building.findMany();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return this.databaseService.building.findUnique({where: {id}});
   }
 
-  async update(id: number, updateBuildingDto: Prisma.BuildingUpdateInput) {
+  async update(id: string, updateBuildingDto: Prisma.BuildingUpdateInput) {
     return this.databaseService.building.update({where: {id}, data: updateBuildingDto});
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return this.databaseService.building.delete({where: {id}});
   }
 
-  async addSpotToBuilding(buildingId: number, createSpotDto: Prisma.SpotCreateWithoutBuildingInput) {
+  async addSpotToBuilding(buildingId: string, createSpotDto: Prisma.SpotCreateWithoutBuildingInput) {
     return this.databaseService.spot.create({
       data: {
         ...createSpotDto,

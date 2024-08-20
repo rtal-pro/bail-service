@@ -18,24 +18,24 @@ export class BuildingClusterController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.buildingClusterService.findOne(+id);
+    return this.buildingClusterService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBuildingClusterDto: Prisma.BuildingClusterUpdateInput) {
-    return this.buildingClusterService.update(+id, updateBuildingClusterDto);
+    return this.buildingClusterService.update(id, updateBuildingClusterDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.buildingClusterService.remove(+id);
+    return this.buildingClusterService.remove(id);
   }
 
   //add building to cluster
   @Post(':clusterId/buildings/:buildingId')
   async addBuilding(
-    @Param('clusterId') clusterId: number,
-    @Param('buildingId') buildingId: number
+    @Param('clusterId') clusterId: string,
+    @Param('buildingId') buildingId: string,
   ) {
     return this.buildingClusterService.addBuildingToCluster(clusterId, buildingId);
   }

@@ -14,6 +14,7 @@ import { TaskTemplateModule } from './task-template/task-template.module';
 import { BuildingClusterModule } from './building-cluster/building-cluster.module';
 import { BuildingModule } from './building/building.module';
 import { SpotModule } from './spot/spot.module';
+import { ErrorHandlingModule } from './error-handling/error-handling.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { SpotModule } from './spot/spot.module';
     BuildingClusterModule,
     BuildingModule,
     SpotModule,
+    ErrorHandlingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

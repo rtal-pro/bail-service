@@ -15,19 +15,19 @@ export class BuildingClusterService {
     return this.databaseService.buildingCluster.findMany();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return this.databaseService.buildingCluster.findUnique({where: {id}});
   }
 
-  async update(id: number, updateBuildingClusterDto: Prisma.BuildingClusterUpdateInput) {
+  async update(id: string, updateBuildingClusterDto: Prisma.BuildingClusterUpdateInput) {
     return this.databaseService.buildingCluster.update({where: {id}, data: updateBuildingClusterDto});
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return this.databaseService.buildingCluster.delete({where: {id}});
   }
 
-  async addBuildingToCluster(clusterId: number, buildingId: number) {
+  async addBuildingToCluster(clusterId: string, buildingId: string) {
     return this.databaseService.building.update({
       where: { id: buildingId },
       data: {

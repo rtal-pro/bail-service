@@ -19,10 +19,10 @@ model Enterprise {
   buildings    Building[]
   spots        Spot[]
   reports      Report[]
-  createdBy    Admin              @relation("EnterpriseCreatedBy", fields: [createdById], references: [id])
-  createdById  String
-  updatedBy    Admin              @relation("EnterpriseUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  String
+  createdBy    Admin?              @relation("EnterpriseCreatedBy", fields: [createdById], references: [id])
+  createdById  String?
+  updatedBy    Admin?              @relation("EnterpriseUpdatedBy", fields: [updatedById], references: [id])
+  updatedById  String?
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -105,10 +105,10 @@ model Provider {
   ProviderStatistics ProviderStatistics[]
   taskTemplate TaskTemplate[]
   tasks        Task[]
-  createdBy    Admin              @relation("ProviderCreatedBy", fields: [createdById], references: [id])
-  createdById  String
-  updatedBy    Admin              @relation("ProviderUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  String
+  createdBy    Admin?              @relation("ProviderCreatedBy", fields: [createdById], references: [id])
+  createdById  String?
+  updatedBy    Admin?              @relation("ProviderUpdatedBy", fields: [updatedById], references: [id])
+  updatedById  String?
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -118,17 +118,17 @@ model Provider {
 model TaskTemplate {
   id           String             @id @default(cuid())
   title        String
-  description  String
+  description  String?
   status       TaskTemplateStatus @default(PENDING)
   taskType     TaskType
   duration     Int
   provider     Provider           @relation(fields: [providerId], references: [id])
   providerId   String
   providerType ProviderType       @default(OTHER)
-  createdBy    Admin              @relation("TaskTemplateCreatedBy", fields: [createdById], references: [id])
-  createdById  String
-  updatedBy    Admin              @relation("TaskTemplateUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  String
+  createdBy    Admin?              @relation("TaskTemplateCreatedBy", fields: [createdById], references: [id])
+  createdById  String?
+  updatedBy    Admin?              @relation("TaskTemplateUpdatedBy", fields: [updatedById], references: [id])
+  updatedById  String?
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -137,7 +137,7 @@ model TaskTemplate {
 model Task {
   id           String             @id @default(cuid())
   title        String
-  description  String
+  description  String?
   status       ProgramationStatus
   taskType     TaskType
   duration     Int
@@ -147,10 +147,10 @@ model Task {
   providerId   String
   spot         Spot               @relation(fields: [spotId], references: [id])
   spotId       String
-  createdBy    Admin              @relation("TaskCreatedBy", fields: [createdById], references: [id])
-  createdById  String
-  updatedBy    Admin              @relation("TaskUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  String
+  createdBy    Admin?              @relation("TaskCreatedBy", fields: [createdById], references: [id])
+  createdById  String?
+  updatedBy    Admin?              @relation("TaskUpdatedBy", fields: [updatedById], references: [id])
+  updatedById  String?
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -196,13 +196,13 @@ model BuildingCluster {
   city         String
   country      String
   buildings    Building[]
-  description  String
+  description  String?
   enterprise   Enterprise         @relation(fields: [enterpriseId], references: [id])
   enterpriseId String
-  createdBy    Admin              @relation("BuildingClusterCreatedBy", fields: [createdById], references: [id])
-  createdById  String
-  updatedBy    Admin              @relation("BuildingClusterUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  String
+  createdBy    Admin?              @relation("BuildingClusterCreatedBy", fields: [createdById], references: [id])
+  createdById  String?
+  updatedBy    Admin?              @relation("BuildingClusterUpdatedBy", fields: [updatedById], references: [id])
+  updatedById  String?
   ClusterStatistics ClusterStatistics[]
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
@@ -217,15 +217,15 @@ model Building {
   country      String
   spots        Spot[]
   buildingStats BuildingStatistics[]
-  description  String
+  description  String?
   buildingCluster BuildingCluster? @relation(fields: [buildingClusterId], references: [id])
   buildingClusterId String?
   enterprise   Enterprise         @relation(fields: [enterpriseId], references: [id])
   enterpriseId String
-  createdBy    Admin              @relation("BuildingCreatedBy", fields: [createdById], references: [id])
-  createdById  String
-  updatedBy    Admin              @relation("BuildingUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  String
+  createdBy    Admin?              @relation("BuildingCreatedBy", fields: [createdById], references: [id])
+  createdById  String?
+  updatedBy    Admin?              @relation("BuildingUpdatedBy", fields: [updatedById], references: [id])
+  updatedById  String?
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -239,7 +239,7 @@ model Spot {
   country      String
   building     Building?          @relation(fields: [buildingId], references: [id])
   buildingId   String?
-  description  String
+  description  String?
   enterprise   Enterprise         @relation(fields: [enterpriseId], references: [id])
   enterpriseId String
   tasks        Task[]
@@ -249,10 +249,10 @@ model Spot {
   beacons      Beacon[]
   geoFences    GeoFence[]
   SpotStatistics SpotStatistics[]
-  createdBy    Admin              @relation("SpotCreatedBy", fields: [createdById], references: [id])
-  createdById  String
-  updatedBy    Admin              @relation("SpotUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  String
+  createdBy    Admin?              @relation("SpotCreatedBy", fields: [createdById], references: [id])
+  createdById  String?
+  updatedBy    Admin?              @relation("SpotUpdatedBy", fields: [updatedById], references: [id])
+  updatedById  String?
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -266,10 +266,10 @@ model QRCode {
   text         String?
   spot         Spot               @relation(fields: [spotId], references: [id])
   spotId       String
-  createdBy    Admin              @relation("QRCodeCreatedBy", fields: [createdById], references: [id])
-  createdById  String
-  updatedBy    Admin              @relation("QRCodeUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  String
+  createdBy    Admin?              @relation("QRCodeCreatedBy", fields: [createdById], references: [id])
+  createdById  String?
+  updatedBy    Admin?              @relation("QRCodeUpdatedBy", fields: [updatedById], references: [id])
+  updatedById  String?
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -283,10 +283,10 @@ model NFCTag {
   text         String?
   spot         Spot               @relation(fields: [spotId], references: [id])
   spotId       String
-  createdBy    Admin              @relation("NFCTagCreatedBy", fields: [createdById], references: [id])
-  createdById  String
-  updatedBy    Admin              @relation("NFCTagUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  String
+  createdBy    Admin?              @relation("NFCTagCreatedBy", fields: [createdById], references: [id])
+  createdById  String?
+  updatedBy    Admin?              @relation("NFCTagUpdatedBy", fields: [updatedById], references: [id])
+  updatedById  String?
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -300,10 +300,10 @@ model RFIDTag {
   text         String?
   spot         Spot               @relation(fields: [spotId], references: [id])
   spotId       String
-  createdBy    Admin              @relation("RFIDTagCreatedBy", fields: [createdById], references: [id])
-  createdById  String
-  updatedBy    Admin              @relation("RFIDTagUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  String
+  createdBy    Admin?              @relation("RFIDTagCreatedBy", fields: [createdById], references: [id])
+  createdById  String?
+  updatedBy    Admin?              @relation("RFIDTagUpdatedBy", fields: [updatedById], references: [id])
+  updatedById  String?
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -317,10 +317,10 @@ model Beacon {
   color        String
   spot         Spot               @relation(fields: [spotId], references: [id])
   spotId       String
-  createdBy    Admin              @relation("BeaconCreatedBy", fields: [createdById], references: [id])
-  createdById  String
-  updatedBy    Admin              @relation("BeaconUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  String
+  createdBy    Admin?              @relation("BeaconCreatedBy", fields: [createdById], references: [id])
+  createdById  String?
+  updatedBy    Admin?              @relation("BeaconUpdatedBy", fields: [updatedById], references: [id])
+  updatedById  String?
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -333,10 +333,10 @@ model GeoFence {
   radius       Int
   spot         Spot               @relation(fields: [spotId], references: [id])
   spotId       String
-  createdBy    Admin              @relation("GeoFenceCreatedBy", fields: [createdById], references: [id])
-  createdById  String
-  updatedBy    Admin              @relation("GeoFenceUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  String
+  createdBy    Admin?              @relation("GeoFenceCreatedBy", fields: [createdById], references: [id])
+  createdById  String?
+  updatedBy    Admin?              @relation("GeoFenceUpdatedBy", fields: [updatedById], references: [id])
+  updatedById  String?
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
@@ -349,10 +349,10 @@ model Report {
   generatedAt  DateTime           @default(now())
   enterprise   Enterprise         @relation(fields: [enterpriseId], references: [id])
   enterpriseId String
-  createdBy    Admin              @relation("ReportCreatedBy", fields: [createdById], references: [id])
-  createdById  String
-  updatedBy    Admin              @relation("ReportUpdatedBy", fields: [updatedById], references: [id])
-  updatedById  String
+  createdBy    Admin?              @relation("ReportCreatedBy", fields: [createdById], references: [id])
+  createdById  String?
+  updatedBy    Admin?              @relation("ReportUpdatedBy", fields: [updatedById], references: [id])
+  updatedById  String?
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?

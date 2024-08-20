@@ -15,15 +15,15 @@ export class AdminService {
     return this.databaseService.admin.findMany();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return this.databaseService.admin.findUnique({where: {id}});
   }
 
-  async update(id: number, updateAdminDto: Prisma.AdminUpdateInput) {
+  async update(id: string, updateAdminDto: Prisma.AdminUpdateInput) {
     return this.databaseService.admin.update({where: {id}, data: updateAdminDto});
   }
 
-  async remove(id: number) {
-    return this.databaseService.admin.delete({where: {id}});
+  async remove(id: string) {
+    return this.databaseService.admin.update({where: {id}, data: {deletedAt: new Date()}});
   }
 }

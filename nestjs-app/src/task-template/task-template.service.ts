@@ -15,15 +15,15 @@ export class TaskTemplateService {
     return this.databaseService.taskTemplate.findMany();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return this.databaseService.taskTemplate.findUnique({where: {id}});
   }
 
-  async update(id: number, updateTaskDto: Prisma.TaskTemplateUpdateInput) {
+  async update(id: string, updateTaskDto: Prisma.TaskTemplateUpdateInput) {
     return this.databaseService.taskTemplate.update({where: {id}, data: updateTaskDto});
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return this.databaseService.taskTemplate.delete({where: {id}});
   }
 }

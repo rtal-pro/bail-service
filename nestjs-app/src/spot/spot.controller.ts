@@ -18,17 +18,17 @@ export class SpotController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.spotService.findOne(+id);
+    return this.spotService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateSpotDto: Prisma.SpotUpdateInput) {
-    return this.spotService.update(+id, updateSpotDto);
+    return this.spotService.update(id, updateSpotDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.spotService.remove(+id);
+    return this.spotService.remove(id);
   }
 
 }
