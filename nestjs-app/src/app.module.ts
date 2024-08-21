@@ -47,6 +47,7 @@ import { ErrorHandlingModule } from './error-handling/error-handling.module';
     ErrorHandlingModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ErrorHandlingModule, SpotModule, BuildingModule, BuildingClusterModule, TaskTemplateModule, AdminModule, TaskModule, ProviderModule, EnterpriseModule, DatabaseModule, PrometheusModule
+  ],
 })
-export class AppModule {}
+export class AppModule { }
