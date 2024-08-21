@@ -23,6 +23,21 @@ services:
     networks:
       - monitoring
 
+  next-app:
+    build: ./next-app
+    container_name: next-app
+    restart: always
+    ports:
+      - "80:3000"  # Map port 3000 in the container to port 80 on the host
+    volumes:
+      - ./next-app:/app
+    depends_on:
+      - nestjs-app
+    environment:
+      - NODE_ENV=production
+    networks:
+      - monitoring
+
   nestjs-app:
     build: ./nestjs-app
     container_name: nestjs-app
