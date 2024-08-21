@@ -10,7 +10,7 @@ volumes:
 services:
   node-exporter:
     image: prom/node-exporter
-    container_name: node-exporter
+    container_name: bs-node-exporter
     restart: always
     ports:
       - "9100:9100"
@@ -24,23 +24,22 @@ services:
       - monitoring
 
   next-app:
-    build: ./next-app
-    container_name: next-app
-    restart: always
-    ports:
-      - "80:3000"  # Map port 3000 in the container to port 80 on the host
+    image: node:18-alpine
+    container_name: bs-next-app
+    working_dir: /app
     volumes:
       - ./next-app:/app
+    ports:
+      - "80:3000"
+    command: sh -c "npm install && npm run dev --watch"
     depends_on:
       - nestjs-app
     environment:
-      - NODE_ENV=production
-    networks:
-      - monitoring
+      - NODE_ENV=development
 
   nestjs-app:
     build: ./nestjs-app
-    container_name: nestjs-app
+    container_name: bs-nest-app
     working_dir: /app
     volumes:
       - ./nestjs-app:/app
@@ -57,13 +56,13 @@ services:
       - DATABASE_USER=${DB_USER}
       - DATABASE_PASSWORD=${DB_PASSWORD}
       - DATABASE_NAME=${DB_NAME}
-    command: sh -c "sleep 15 && npm run start:dev"
+    command: sh -c "sleep 5 && npm run start:dev --watch"
     networks:
       - monitoring
 
   mysql:
     image: mysql:5.7
-    container_name: nestjs-mysql
+    container_name: bs-mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
@@ -84,7 +83,7 @@ services:
 
   mysql-exporter:
     image: prom/mysqld-exporter
-    container_name: nestjs-mysql-exporter
+    container_name: bs-mysql-exporter
     command: 
      - --config.my-cnf=/cfg/.my.cnf
     volumes:
@@ -99,7 +98,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: nestjs-phpmyadmin
+    container_name: bs-phpmyadmin
     restart: always
     ports:
       - "8080:80"
@@ -114,7 +113,7 @@ services:
 
   nestjs-prometheus:
     image: prom/prometheus:latest
-    container_name: nestjs-prometheus
+    container_name: bs-prometheus
     restart: unless-stopped
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
@@ -132,7 +131,7 @@ services:
 
   grafana:
     image: grafana/grafana
-    container_name: nestjs-grafana
+    container_name: bs-grafana
     ports:
       - "3001:3000"
     depends_on:
