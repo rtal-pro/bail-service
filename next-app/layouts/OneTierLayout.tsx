@@ -36,8 +36,8 @@ const OneTiersLayout: React.FC<LayoutProps> = ({ children, sidebar, navbar }) =>
                 <div className="flex flex-col flex-1">
                     <div className="h-16 px-4">
                         <header
-                            className={`h-16 ${isSticky
-                                ? 'fixed top-0 w-full z-10 m-2 px-4 rounded-lg bg-slate-800 shadow-lg'
+                            className={`h-16  ${isSticky
+                                ? 'fixed top-0 w-full z-10 m-2 px-4 rounded-lg shadow-lg'
                                 : 'relative m-2 px-4 rounded-lg bg-slate-400'
                                 }`}
                             style={{
@@ -61,7 +61,7 @@ const OneTiersLayout: React.FC<LayoutProps> = ({ children, sidebar, navbar }) =>
                             </div>
                         </div>
                     </main>
-                    
+
                     {/* Drawer */}
                     <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
                         <h2 className="text-xl font-semibold mb-4">Drawer Content</h2>
