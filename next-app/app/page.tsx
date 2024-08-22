@@ -1,14 +1,29 @@
-import Layout from '../components/Layout';
+import React from 'react';
+import OneTierLayout from '../layouts/OneTierLayout';
 
-const HomePage = () => {
-  return (
-    <Layout>
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Welcome to the Dashboard</h2>
-        <p>This is your main content area. You can add any content here.</p>
-      </div>
-    </Layout>
-  );
-};
+const MyNavbar = () => (
+  <div>
+    <p>Navbar content goes here</p>
+  </div>
+);
 
-export default HomePage;
+const MySidebar = () => (
+  <div className='h-full'>
+    <p>Sidebar content goes here</p>
+  </div>
+);
+
+const MyPage = () => (
+  <OneTierLayout sidebar={<MySidebar />} navbar={<MyNavbar />}>
+    <div className=''>
+      <h2 className="min-h-screen text-xl font-semibold mb-4">Column 1 Content</h2>
+      <p>This content will take 1/3 of the space.</p>
+    </div>
+    <div className='font-black'>
+      <h2 className="text-xl font-semibold mb-4">Column 2 Content</h2>
+      <p>This content will take 2/3 of the space.</p>
+    </div>
+  </OneTierLayout>
+);
+
+export default MyPage;
