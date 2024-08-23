@@ -11,7 +11,6 @@ interface LayoutProps {
 
 const OneTiersLayout: React.FC<LayoutProps> = ({ children, sidebar, navbar }) => {
     const [isSticky, setIsSticky] = useState(false);
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     const handleScroll = () => {
         setIsSticky(window.scrollY > 0);
@@ -28,30 +27,36 @@ const OneTiersLayout: React.FC<LayoutProps> = ({ children, sidebar, navbar }) =>
         <div className="min-h-screen flex flex-col bg-gray-100">
             <div className="flex flex-1">
                 {/* Sidebar */}
-                <aside className="w-64 bg-slate-400 p-4 flex-shrink-0">
+                <aside className="w-64 bg-slate-400 p-4">
                     {sidebar}
                 </aside>
 
-                {/* Navbar and Content */}
-                <div className="flex flex-col flex-1">
-                    <div className="h-16 px-4">
+                {/* Main content */}
+                <div className="flex-1 flex flex-col p-8">
+                    {/* Navbar */}
+                    <div className="h-16">
+
+                        {/* Sticky Navbar */}
                         <header
-                            className={`h-16  ${isSticky
-                                ? 'fixed top-0 w-full z-10 m-2 px-4 rounded-lg shadow-lg'
-                                : 'relative m-2 px-4 rounded-lg bg-slate-400'
+                            className={`h-16 flex rounded-lg items-center  ${isSticky
+                                ? 'fixed left-66 top-8 right-2 z-10 px-4 shadow-lg'
+                                : 'relative px-4 mx-2'
                                 }`}
                             style={{
                                 transition: 'box-shadow .25s ease-in, background-color .25s ease-in',
-                                boxShadow: isSticky ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none',
                                 backdropFilter: isSticky ? 'blur(8px)' : 'none',
+                                boxShadow: isSticky ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none',
+                                width: isSticky ? 'calc(100% - 20rem)' : 'auto', // 16rem est la largeur du sidebar avec padding
                             }}
                         >
-                            {navbar}
+                            <div className="w-full">
+                                {navbar}
+                            </div>
                         </header>
                     </div>
 
-                    {/* Full-width Content with 1/3 2/3 Layout */}
-                    <main className="flex-1 pt-8 p-4 m-2">
+                    {/* Content */}
+                    <main className="flex-1 p-6 mt-20">
                         <div className="grid grid-cols-3 gap-6">
                             <div className="col-span-1 bg-slate-600 rounded-lg shadow">
                                 {children && children[0]}
@@ -61,14 +66,14 @@ const OneTiersLayout: React.FC<LayoutProps> = ({ children, sidebar, navbar }) =>
                             </div>
                         </div>
                     </main>
-
-                    {/* Drawer */}
-                    <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
-                        <h2 className="text-xl font-semibold mb-4">Drawer Content</h2>
-                        <p>Some content for the drawer.</p>
-                    </Drawer>
                 </div>
             </div>
+
+            {/* Drawer */}
+            <Drawer isOpen={false} onClose={() => { }}>
+                <h2 className="text-xl font-semibold mb-4">Drawer Content</h2>
+                <p>Some content for the drawer.</p>
+            </Drawer>
         </div>
     );
 };

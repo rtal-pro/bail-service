@@ -9,9 +9,9 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ breadCrumb, pageTitle, onButtonClick1, onButtonClick2 }) => {
     return (
-        <div className='h-full flex items-center justify-between'>
+        <div className='h-full rounded-lg flex items-center justify-between'>
             {/* Left Side: Breadcrumb and Page Title */}
-            <div className='flex flex-col'>
+            <div className='flex flex-col '>
                 {breadCrumb && <div className='text-sm text-gray-300'>{breadCrumb}</div>}
                 {pageTitle && <h2 className="text-2xl font-semibold">{pageTitle}</h2>}
             </div>
