@@ -1,73 +1,80 @@
-import React from 'react'
+import React from 'react';
+import { FaBroom, FaBolt, FaWrench, FaHammer, FaPaintBrush, FaLeaf, FaSnowflake, FaLaptop } from 'react-icons/fa';
 
-const includedFeatures = [
-  'Private forum access',
-  'Member resources',
-  'Entry to annual conference',
-  'Official member t-shirt',
-]
+interface ProviderCardProps {
+  email: string;
+  phone: string;
+  firstName?: string;
+  lastName?: string;
+  companyName?: string;
+  providerType: string;
+}
 
-export default function Card() {
+const providerTypeData = {
+  CLEANER: {
+    icon: <FaBroom className="text-gray-700" />,
+    color: 'from-blue-200 to-blue-300',
+  },
+  ELECTRICIAN: {
+    icon: <FaBolt className="text-gray-700" />,
+    color: 'from-yellow-200 to-yellow-300',
+  },
+  PLUMBER: {
+    icon: <FaWrench className="text-gray-700" />,
+    color: 'from-teal-200 to-teal-300',
+  },
+  CARPENTER: {
+    icon: <FaHammer className="text-gray-700" />,
+    color: 'from-orange-200 to-orange-300',
+  },
+  PAINTER: {
+    icon: <FaPaintBrush className="text-gray-700" />,
+    color: 'from-red-200 to-red-300',
+  },
+  GARDENER: {
+    icon: <FaLeaf className="text-gray-700" />,
+    color: 'from-green-200 to-green-300',
+  },
+  HVAC: {
+    icon: <FaSnowflake className="text-gray-700" />,
+    color: 'from-purple-200 to-purple-300',
+  },
+  IT_SUPPORT: {
+    icon: <FaLaptop className="text-gray-700" />,
+    color: 'from-indigo-200 to-indigo-300',
+  },
+  OTHER: {
+    icon: <FaLaptop className="text-gray-700" />,
+    color: 'from-gray-200 to-gray-300',
+  }
+};
+
+const ProviderCard: React.FC<ProviderCardProps> = ({ email, phone, firstName, lastName, companyName, providerType }) => {
+  const { icon, color } = providerTypeData[providerType as keyof typeof providerTypeData] || providerTypeData.OTHER;
+
   return (
-    <div className="bg-white py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl sm:text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Simple no-tricks pricing</h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas
-            in. Explicabo id ut laborum.
-          </p>
+    <div className="relative p-4 rounded-lg shadow-lg bg-white overflow-hidden">
+      {/* Diagonal Background */}
+      <div className={`absolute inset-0 bg-gradient-to-r ${color} transform -skew-y-4 origin-bottom-right z-0`} style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 50%)' }}></div>
+
+      <div className="relative z-10 flex items-center space-x-4">
+        <div className="p-2 bg-white rounded-full shadow">
+          {icon}
         </div>
-        <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
-          <div className="p-8 sm:p-10 lg:flex-auto">
-            <h3 className="text-2xl font-bold tracking-tight text-gray-900">Lifetime membership</h3>
-            <p className="mt-6 text-base leading-7 text-gray-600">
-              Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis blanditiis
-              repellendus etur quidem assumenda.
-            </p>
-            <div className="mt-10 flex items-center gap-x-4">
-              <h4 className="flex-none text-sm font-semibold leading-6 text-indigo-600">What’s included</h4>
-              <div className="h-px flex-auto bg-gray-100" />
-            </div>
-            <ul
-              role="list"
-              className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6"
-            >
-              {includedFeatures.map((feature) => (
-                <li key={feature} className="flex gap-x-3">
-                  <svg
-                    className="flex-none w-5 h-5 text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  ></svg>
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-            <div className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
-              <div className="mx-auto max-w-xs px-8">
-                <p className="text-base font-semibold text-gray-600">Pay once, own it forever</p>
-                <p className="mt-6 flex items-baseline justify-center gap-x-2">
-                  <span className="text-5xl font-bold tracking-tight text-gray-900">$349</span>
-                  <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">USD</span>
-                </p>
-                <a
-                  href="#"
-                  className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Get access
-                </a>
-                <p className="mt-6 text-xs leading-5 text-gray-600">
-                  Invoices and receipts available for easy company reimbursement
-                </p>
-              </div>
-            </div>
-          </div>
+        <div>
+          <h3 className="text-lg font-semibold text-gray-800">{companyName || 'No Company Name'}</h3>
+          <p className="text-sm text-gray-600">{`${firstName || ''} ${lastName || ''}`.trim()}</p>
+          <p className="text-sm text-gray-600">{email}</p>
+          <p className="text-sm text-gray-600">{phone}</p>
         </div>
       </div>
+
+      {/* Provider Type Chip */}
+      <div className={`absolute bottom-2 right-2 text-white text-xs font-semibold px-2 py-1 rounded bg-gradient-to-r ${color}`}>
+        {providerType}
+      </div>
     </div>
-  )
-}
+  );
+};
+
+export default ProviderCard;

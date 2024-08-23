@@ -44,7 +44,7 @@ const OneTiersLayout: React.FC<LayoutProps> = ({ children, sidebar, navbar }) =>
                                 }`}
                             style={{
                                 transition: 'box-shadow .25s ease-in, background-color .25s ease-in',
-                                backdropFilter: isSticky ? 'blur(8px)' : 'none',
+                                backdropFilter: isSticky ? 'blur(16px)' : 'none',
                                 boxShadow: isSticky ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none',
                                 width: isSticky ? 'calc(100% - 20rem)' : 'auto', // 16rem est la largeur du sidebar avec padding
                             }}
@@ -58,10 +58,10 @@ const OneTiersLayout: React.FC<LayoutProps> = ({ children, sidebar, navbar }) =>
                     {/* Content */}
                     <main className="flex-1 p-6 mt-20">
                         <div className="grid grid-cols-3 gap-6">
-                            <div className="col-span-1 bg-slate-600 rounded-lg shadow">
+                            <div className="col-span-1 rounded-lg">
                                 {children && children[0]}
                             </div>
-                            <div className="col-span-2 bg-slate-600 rounded-lg shadow">
+                            <div className="col-span-2 bg-orange-300 rounded-lg">
                                 {children && children[1]}
                             </div>
                         </div>
