@@ -56,7 +56,7 @@ services:
       - DATABASE_USER=${DB_USER}
       - DATABASE_PASSWORD=${DB_PASSWORD}
       - DATABASE_NAME=${DB_NAME}
-    command: sh -c "sleep 5 && npm run start:dev --watch"
+    command: sh -c "sleep 5 && npm install && npm run start:dev --watch"
     networks:
       - monitoring
 

@@ -24,10 +24,10 @@ const OneTiersLayout: React.FC<LayoutProps> = ({ children, sidebar, navbar }) =>
     }, []);
 
     return (
-        <div className="min-h-screen flex flex-col bg-gray-100">
+        <div className="min-h-screen flex flex-col">
             <div className="flex flex-1">
                 {/* Sidebar */}
-                <aside className="w-64 bg-slate-400 p-4">
+                <aside className="w-64 p-6 h-full">
                     {sidebar}
                 </aside>
 
@@ -61,7 +61,7 @@ const OneTiersLayout: React.FC<LayoutProps> = ({ children, sidebar, navbar }) =>
                             <div className="col-span-1 rounded-lg">
                                 {children && children[0]}
                             </div>
-                            <div className="col-span-2 bg-orange-300 rounded-lg">
+                            <div className="col-span-2  rounded-lg">
                                 {children && children[1]}
                             </div>
                         </div>

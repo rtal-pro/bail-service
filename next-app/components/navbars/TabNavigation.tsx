@@ -51,7 +51,7 @@ const TabNavigation = () => {
                 ></div>
             </ul>
         </div>
-    );
-};
+    )
+}
 
 export default TabNavigation;
