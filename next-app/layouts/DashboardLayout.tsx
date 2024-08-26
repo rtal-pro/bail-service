@@ -9,12 +9,12 @@ interface LayoutProps {
 
 const DashboardLayout: React.FC<LayoutProps> = ({ sidebar, children }) => {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-full ">
       {/* Sidebar */}
-      <div className=" h-full shadow-lg">{sidebar}</div>
+      <div className="">{sidebar}</div>
 
       {/* Main Content */}
-      <div className="flex-1 p-6 bg-white overflow-y-auto">{children}</div>
+      <div className="">{children}</div>
     </div>
   );
 };
