@@ -16,7 +16,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} min-h-screen`}>
+        {/* Wrapper for the background */}
+        <div className="relative min-h-screen">
+          <div className="absolute inset-0 h-1/4 bg-gradient-to-r from-indigo-400 to-indigo-500" />
+
+          <div className="absolute inset-0 top-1/4 h-3/4 bg-white" />
+
+          <div className="relative z-10">
+            {children}
+          </div>
+        </div>
+      </body>
     </html>
   );
 }

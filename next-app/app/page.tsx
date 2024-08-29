@@ -1,12 +1,21 @@
 import React from "react";
 import DashboardLayout from "@/layouts/DashboardLayout";
-import { AceternitySideBar } from "../components/sidebars/AceternitySideBar";
-import { BentoGridThirdDemo } from "@/components/bentoGrids/bentoDemo";
+import SideBar from "@/components/sidebars/MainSideBar";
+import Navbar from "@/components/navbars/MainNavBar";
+import OneTierContent from "@/layouts/OneTierContent";
+
 const DashboardPage = () => {
   return (
-    <DashboardLayout sidebar={<AceternitySideBar />}> 
+    <DashboardLayout sidebar={<SideBar/>} navbar={<Navbar/>}>
       {/* Main content goes here */}
-      <BentoGridThirdDemo/>
+      <OneTierContent>
+        <div>
+          First Column
+        </div>
+        <div>
+          Second Column
+        </div>
+      </OneTierContent>
     </DashboardLayout>
   );
 };
