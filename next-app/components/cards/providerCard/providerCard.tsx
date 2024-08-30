@@ -53,7 +53,7 @@ const ProviderCard: React.FC<ProviderCardProps> = ({ email, phone, firstName, la
   const { icon, color } = providerTypeData[providerType as keyof typeof providerTypeData] || providerTypeData.OTHER;
 
   return (
-    <div className="relative p-4 rounded-lg shadow-lg bg-white overflow-hidden">
+    <div className="relative p-4 rounded-xl shadow-xl bg-white overflow-hidden">
       {/* Diagonal Background */}
       <div className={`absolute inset-0 bg-gradient-to-r ${color} transform -skew-y-4 origin-bottom-right z-0`} style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 50%)' }}></div>
 

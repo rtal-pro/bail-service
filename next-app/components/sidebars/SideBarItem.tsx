@@ -1,21 +1,33 @@
-import React from "react";
-import { IconType } from "react-icons"; // Import IconType for better typing
+"use client";
+import React, { useState } from "react";
+import { IconType } from "react-icons";
 
 interface SidebarItemProps {
-    icon: React.ElementType;
-    label: string;
-    href: string;
-    active?: boolean;
+  icon: IconType;  // Use IconType for better typing from react-icons
+  label: string;
+  href: string;
+  active?: boolean;
+  color?: string;
 }
 
-const SideBarItem: React.FC<SidebarItemProps> = ({ icon: Icon, label, href, active = false }) => {
-    return (
-        <div className="ml-4 flex">
-            <div className="flex p-2 rounded-lg border border-indigo-500">
-                <Icon className="h-4 w-4"/>
-            </div>
-        </div>
-    );
+const SideBarItem: React.FC<SidebarItemProps> = ({ icon: Icon, color = "text-gray-600", label, href, active = false }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <a
+      href={href} 
+      className={`flex items-center p-2 rounded-xl transition-colors duration-300 mx-2 ${
+        active ? 'bg-indigo-100 text-indigo-500' : 'text-gray-700 hover:bg-indigo-50'
+      }`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Icon 
+        className={`h-5 w-5 ml-1 ${active ? color : isHovered ? color : color}`}
+      />
+      <span className="ml-4">{label}</span>
+    </a>
+  );
 };
 
 export default SideBarItem;

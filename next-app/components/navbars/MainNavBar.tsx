@@ -10,7 +10,6 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ breadCrumb, pageTitle }) => {
   const [isSticky, setSticky] = useState(false);
-  const [overFlow, setOverFlow] = useState(false);
   const [isScrolledQuarter, setIsScrolledQuarter] = useState(false);
 
   const handleScroll = () => {
@@ -18,8 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({ breadCrumb, pageTitle }) => {
     const viewportHeight = window.innerHeight;
 
     setSticky(scrollY > 0);
-    setOverFlow(scrollY > 0);
-    setIsScrolledQuarter(scrollY > viewportHeight / 4);
+    setIsScrolledQuarter(scrollY > 0);
   };
 
   useEffect(() => {
@@ -35,17 +33,16 @@ const Navbar: React.FC<NavbarProps> = ({ breadCrumb, pageTitle }) => {
 
   return (
     <div
-      className={`fixed top-4 left-60 w-[calc(100%-16rem)] px-4 h-16 flex items-center justify-between rounded-xl shadow-xl z-10 `}
+      className={`fixed top-4 left-70 w-[calc(100%-16rem)] px-4 h-16 flex items-center justify-between rounded-xl shadow-xl z-10 `}
       style={{
-        transition: 'background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out',
-        boxShadow: isSticky ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none',
+        transition: 'background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out, backdrop-filter 0.5s ease-in-out',
+        backgroundColor: isSticky ? 'rgba(255, 255, 255, 0.4)' : 'transparent',
         backdropFilter: isSticky ? 'blur(10px)' : 'none',
+        boxShadow: isSticky ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none',
       }}
     >
-      {/* The inner content will not be blurred */}
-      <div className="relative z-10 flex flex-col">
+      <div className={`relative z-10 flex flex-col ${isScrolledQuarter ? 'text-slate-800' : 'text-white'}`}>
         <div className="text-sm">
-          {/* Display each part of the breadcrumb */}
           {breadcrumbParts.map((part, index) => (
             <span
               key={index}
@@ -56,7 +53,6 @@ const Navbar: React.FC<NavbarProps> = ({ breadCrumb, pageTitle }) => {
               {part}/
             </span>
           ))}
-          {/* Style the last part lighter */}
           <span
             className={`${
               isScrolledQuarter ? 'text-gray-400' : 'text-gray-300'
@@ -65,14 +61,14 @@ const Navbar: React.FC<NavbarProps> = ({ breadCrumb, pageTitle }) => {
             {lastCrumb}
           </span>
         </div>
-        <div className={`text-lg font-bold ${isScrolledQuarter ? 'text-slate-800' : 'text-white'}`}>
+        <div className="text-lg font-bold">
           {pageTitle}
         </div>
       </div>
 
-      <div className="relative z-10 flex space-x-4">
+      {/* <div className="relative z-10 flex space-x-4 pr-4">
         <BorderButton title="Logout" border="#818cf8" color="#818cf8" />
-      </div>
+      </div> */}
     </div>
   );
 };

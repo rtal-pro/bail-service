@@ -1,21 +1,14 @@
 "use client";
 
 import React from 'react';
-import OneTierLayout from '@/layouts/OneTierLayout';
-import MainNavbar from '@/components/navbars/MainNavBar';
+import OneTierContent from '../../layouts/OneTierContent';
+import DashboardLayout from '@/layouts/DashboardLayout';
+import Navbar from '@/components/navbars/MainNavBar';
 import ProviderCard from '@/components/cards/providerCard/providerCard';
 import TabNavigation from '@/components/navbars/TabNavigation';// Import the ProviderCard component
-import MainSidebar from '@/components/sidebars/MainSideBar';
+import Sidebar from '@/components/sidebars/MainSideBar';
 
 const ProvidersPage = () => {
-  const handleButtonClick1 = () => {
-    console.log('Button 1 clicked');
-  };
-
-  const handleButtonClick2 = () => {
-    console.log('Button 2 clicked');
-  };
-
   const providers = [
     {
       email: 'cleaner@example.com',
@@ -91,12 +84,18 @@ const ProvidersPage = () => {
     },
   ];
 
+  const metadata = {
+    title: "Prestataire",
+    Breadcrumb: "Admin/Prestataire",
+  };
+
   return (
-    <OneTierLayout
-      sidebar={<MainSidebar />}
-      navbar={<MainNavbar breadCrumb={"Pages/Dashboard"} pageTitle={'Dashboard'} />}
+    <DashboardLayout 
+      sidebar={<Sidebar/>} 
+      navbar={<Navbar breadCrumb={metadata.Breadcrumb} pageTitle={metadata.title}/>}
     >
-      <div className="space-y-4">
+      <OneTierContent>
+      <ul className="space-y-4">
         {providers.map((provider, index) => (
           <ProviderCard
             key={index}
@@ -108,12 +107,14 @@ const ProvidersPage = () => {
             role={provider.role}
             providerType={provider.providerType}
           />
+
         ))}
+      </ul>
+      <div>
+        toto
       </div>
-      <div className='font-black'>
-        <TabNavigation />
-      </div>
-    </OneTierLayout>
+      </OneTierContent>
+    </DashboardLayout>
   );
 };
 

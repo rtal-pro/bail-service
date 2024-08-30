@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className={`${inter.className} min-h-screen`}>
         {/* Wrapper for the background */}
         <div className="relative min-h-screen">
-          <div className="absolute inset-0 h-64 bg-gradient-to-r from-indigo-400 to-indigo-00" />
+          <div className="absolute inset-0 h-64 bg-gradient-to-r from-[#5e72e4] to-indigo-900" />
 
           <div className="absolute inset-0 top-64 h-3/4 bg-white" />
 
