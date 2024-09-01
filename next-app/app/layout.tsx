@@ -1,5 +1,7 @@
+// Note: This is the root layout component that wraps the entire application.
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,17 +18,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen`}>
-        {/* Wrapper for the background */}
-        <div className="relative min-h-screen">
-          <div className="absolute inset-0 h-64 bg-gradient-to-r from-[#5e72e4] to-indigo-900" />
+      <body className={`${inter.className} min-h-screen bg-bgPrimary text-textMain`}>
+        {/* ThemeProvider wraps the application to manage theme states */}
+        <ThemeProvider>
+          <div className="relative min-h-screen">
+            {/* Top section with gradient background */}
+            <div className="absolute inset-0 h-64 bg-gradient-to-r from-layer1 to-layer2" />
 
-          <div className="absolute inset-0 top-64 h-3/4 bg-white" />
+            {/* Bottom section with a secondary light background */}
+            <div className="absolute inset-0 top-64 h-3/4 bg-layer3" />
 
-          <div className="relative z-10">
-            {children}
+            {/* Main content area */}
+            <div className="relative z-10">
+              {children}
+            </div>
           </div>
-        </div>
+        </ThemeProvider>
       </body>
     </html>
   );

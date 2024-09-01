@@ -1,12 +1,23 @@
 "use client";
 
 import React from 'react';
+import { motion } from 'framer-motion'; 
 import OneTierContent from '../../layouts/OneTierContent';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import Navbar from '@/components/navbars/MainNavBar';
 import ProviderCard from '@/components/cards/providerCard/providerCard';
-import TabNavigation from '@/components/navbars/TabNavigation';// Import the ProviderCard component
 import Sidebar from '@/components/sidebars/MainSideBar';
+import TabNavigation from '@/components/navbars/TabNavigation';
+import UpcountStat from '@/components/cards/upCountCard';
+import Graph from '@/components/graphs/graph';
+import WeekCalendar from '@/components/calendars/calendar';
+import ProviderModificationForm from '@/components/forms/providers/ProvidersEditForm';
+import { ProviderContextProvider, useProviderContext } from '@/contexts/ProvidersContext';
+import { BsCheck } from "react-icons/bs";
+import { MdPendingActions } from "react-icons/md";
+import { SiStreamrunners } from "react-icons/si";
+
+
 
 const ProvidersPage = () => {
   const providers = [
@@ -82,39 +93,161 @@ const ProvidersPage = () => {
       role: 'USER',
       providerType: 'IT_SUPPORT',
     },
+    {
+      email: 'landscaper@example.com',
+      phone: '+7788990011',
+      firstName: 'Mike',
+      lastName: 'Grass',
+      companyName: 'Lawn Legends',
+      role: 'USER',
+      providerType: 'LANDSCAPER',
+    },
+    {
+      email: 'roofer@example.com',
+      phone: '+8899001122',
+      firstName: 'Sara',
+      lastName: 'Tile',
+      companyName: 'Roof Repair Co.',
+      role: 'USER',
+      providerType: 'ROOFER',
+    },
+    {
+      email: 'locksmith@example.com',
+      phone: '+9900112233',
+      firstName: 'Jake',
+      lastName: 'Lock',
+      companyName: 'Lock Masters',
+      role: 'USER',
+      providerType: 'LOCKSMITH',
+    },
+    {
+      email: 'pestcontrol@example.com',
+      phone: '+0011223344',
+      firstName: 'Linda',
+      lastName: 'Bug',
+      companyName: 'Pest Control Experts',
+      role: 'USER',
+      providerType: 'PEST_CONTROL',
+    },
+    {
+      email: 'moving@example.com',
+      phone: '+1122003344',
+      firstName: 'Chris',
+      lastName: 'Mover',
+      companyName: 'Moving Pros',
+      role: 'USER',
+      providerType: 'MOVING',
+    },
+    {
+      email: 'poolservice@example.com',
+      phone: '+2233445566',
+      firstName: 'Diana',
+      lastName: 'Swim',
+      companyName: 'Pool Care',
+      role: 'USER',
+      providerType: 'POOL_SERVICE',
+    },
+    {
+      email: 'handyman@example.com',
+      phone: '+3344556677',
+      firstName: 'Nathan',
+      lastName: 'Fix',
+      companyName: 'Handyman Helpers',
+      role: 'USER',
+      providerType: 'HANDYMAN',
+    },
+    {
+      email: 'security@example.com',
+      phone: '+4455667788',
+      firstName: 'Betty',
+      lastName: 'Safe',
+      companyName: 'Secure Home',
+      role: 'USER',
+      providerType: 'SECURITY',
+    },
   ];
+  
 
   const metadata = {
     title: "Prestataire",
     Breadcrumb: "Admin/Prestataire",
   };
 
-  return (
-    <DashboardLayout 
-      sidebar={<Sidebar/>} 
-      navbar={<Navbar breadCrumb={metadata.Breadcrumb} pageTitle={metadata.title}/>}
-    >
-      <OneTierContent>
-      <ul className="space-y-4">
-        {providers.map((provider, index) => (
-          <ProviderCard
-            key={index}
-            email={provider.email}
-            phone={provider.phone}
-            firstName={provider.firstName}
-            lastName={provider.lastName}
-            companyName={provider.companyName}
-            role={provider.role}
-            providerType={provider.providerType}
-          />
+  const tabContent = [
+    {
+      name: 'Statistics',
+      component: (
+        <div className="space-y-4">
+          <div className="grid grid-cols-3 gap-4">
+            <UpcountStat label="Completed Tasks" value={120} icon={BsCheck}/>
+            <UpcountStat label="Active Tasks" value={30} icon={SiStreamrunners}/>
+            <UpcountStat label="Pending Requests" value={10} icon={MdPendingActions}/>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <Graph />
+            <Graph />
+          </div>
+        </div>
+      ),
+    },
+    {
+      name: 'Calendar',
+      component: <WeekCalendar />,
+    },
+    {
+      name: 'Modify',
+      component: <ProviderModificationForm />,
+    },
+  ];
 
-        ))}
-      </ul>
-      <div>
-        toto
-      </div>
-      </OneTierContent>
-    </DashboardLayout>
+  // Animation settings for the cards
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1, // Stagger effect with a slight delay for each card
+        duration: 0.5,
+      },
+    }),
+  };
+
+  return (
+    <ProviderContextProvider>
+      <DashboardLayout 
+        sidebar={<Sidebar />} 
+        navbar={<Navbar breadCrumb={metadata.Breadcrumb} pageTitle={metadata.title} />}
+      >
+        <OneTierContent>
+          <div className="max-h-screen px-3 overflow-y-auto scrollbar-hide">
+            <ul className="space-y-4">
+              {providers.map((provider, index) => (
+                <motion.li
+                  key={index}
+                  custom={index}
+                  initial="hidden"
+                  animate="visible"
+                  variants={cardVariants}
+                >
+                  <ProviderCard
+                    email={provider.email}
+                    phone={provider.phone}
+                    firstName={provider.firstName}
+                    lastName={provider.lastName}
+                    companyName={provider.companyName}
+                    role={provider.role}
+                    providerType={provider.providerType}
+                    onClick={() => useProviderContext().selectProvider(provider)} 
+                  />
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+          <TabNavigation tabs={tabContent} />
+        </OneTierContent>
+      </DashboardLayout>
+    </ProviderContextProvider>
   );
 };
 

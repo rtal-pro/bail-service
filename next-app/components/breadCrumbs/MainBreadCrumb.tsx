@@ -1,15 +1,17 @@
-import React from 'react';
+"use client"; // Ensure this is a Client Component
+
+import React from "react";
 
 interface BreadcrumbProps {
-    breadcrumb: string;
+  breadcrumb: string;
 }
 
-const Breadcrumb: React.FC<BreadcrumbProps> = () => {
-    return (
-        <div className="text-sm text-gray-300">
-            {breadcrumb}
-        </div>
-    );
+const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumb }) => {
+  return (
+    <div className="text-sm text-textAccentLight">
+      {breadcrumb}
+    </div>
+  );
 };
 
 export default Breadcrumb;

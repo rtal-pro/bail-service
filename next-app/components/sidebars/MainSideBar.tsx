@@ -15,7 +15,7 @@ const SideBar: React.FC = () => {
     };
 
     return (
-        <div className="h-screen w-full shadow-xl rounded-xl flex flex-col bg-white text-slate-800 sticky top-4">
+        <div className="h-screen w-full shadow-xl rounded-xl flex flex-col bg-bgPrimary text-textMain sticky top-4">
             {/* Logo */}
             <div className="flex items-center justify-center p-4">
                 <img src="/next.svg" alt="logo" className="h-20 w-20" />
@@ -24,14 +24,14 @@ const SideBar: React.FC = () => {
 
             {/* Navigation Titles and Links */}
             <nav className="flex-1 space-y-4 overflow-y-auto px-4">
-                <hr className="border-t border-gray-200" />
-                <div className="font-semibold text-gray-400 mt-4"></div>
+                <hr className="border-t border-bgSecondaryLight" />
+                <div className="font-semibold text-textAccent mt-4">Navigation</div>
                 <ul className="space-y-4">
                     <SideBarItem
                         icon={AiOutlineDashboard}
                         label="Dashboard"
                         href="/dashboard"
-                        color="text-blue-600"
+                        color="sidebarIcon1"
                         active={activeItem === '/dashboard'}
                         onClick={() => handleSetActive('/dashboard')}
                     />
@@ -39,7 +39,7 @@ const SideBar: React.FC = () => {
                         icon={FaTools}
                         label="Prestataire"
                         href="/providers"
-                        color="text-green-600"
+                        color="sidebarIcon2"
                         active={activeItem === '/providers'}
                         onClick={() => handleSetActive('/providers')}
                     />
@@ -47,7 +47,7 @@ const SideBar: React.FC = () => {
                         icon={GrCluster}
                         label="Cluster"
                         href="/cluster"
-                        color="text-purple-600"
+                        color="sidebarIcon3"
                         active={activeItem === '/cluster'}
                         onClick={() => handleSetActive('/cluster')}
                     />
@@ -55,7 +55,7 @@ const SideBar: React.FC = () => {
                         icon={FaBuilding}
                         label="Batiment"
                         href="/building"
-                        color="text-yellow-600"
+                        color="sidebarIcon4"
                         active={activeItem === '/building'}
                         onClick={() => handleSetActive('/building')}
                     />
@@ -63,19 +63,19 @@ const SideBar: React.FC = () => {
                         icon={MdOutlineQrCode2}
                         label="Spots"
                         href="/spots"
-                        color="text-red-600"
+                        color="sidebarIcon5"
                         active={activeItem === '/spots'}
                         onClick={() => handleSetActive('/spots')}
                     />
                 </ul>
 
-                <div className="font-semibold text-gray-400 mt-4">Account Settings</div>
+                <div className="font-semibold text-textAccent mt-4">Account Settings</div>
                 <ul className="space-y-2">
                     <SideBarItem
                         icon={FaUser}
                         label="Profile"
                         href="/profile"
-                        color="text-indigo-600"
+                        color="sidebarIcon6"
                         active={activeItem === '/profile'}
                         onClick={() => handleSetActive('/profile')}
                     />
@@ -83,7 +83,7 @@ const SideBar: React.FC = () => {
                         icon={MdLogout}
                         label="Logout"
                         href="/logout"
-                        color="text-gray-600"
+                        color="sidebarIcon7"
                         active={activeItem === '/logout'}
                         onClick={() => handleSetActive('/logout')}
                     />

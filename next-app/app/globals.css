@@ -3,17 +3,165 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* Default (Light) Theme with Indigo Touches */
+  --layer-1: #818cf8; /* White */
+  --layer-2: #6b6c6d; /* Light background */
+  --layer-3: #e2e8f0; /* Secondary background */
+
+  --bg-primary: #f8fafc; /* Light background */
+  --bg-primary-light: #ffffff; /* Lightest background */
+  --bg-secondary: #e2e8f0; /* Secondary background */
+  --bg-secondary-light: #edf2f7; /* Secondary light background */
+
+  --btn-primary: #807be6; /* Indigo */
+  --btn-primary-hover: #818cf8; /* Lighter Indigo */
+  --btn-secondary: #6366f1; /* Indigo variant */
+  --btn-secondary-hover: #c4b5fd; /* Lighter Indigo variant */
+
+  --text-main: #1f2937; /* Dark text */
+  --text-main-light: #4b5563; /* Lighter dark text */
+  --text-accent: #6b7280; /* Accent gray */
+  --text-accent-light: #9ca3af; /* Light accent */
+
+  --sidebar-icon-1: #d97706; /* Amber */
+  --sidebar-icon-2: #059669; /* Emerald */
+  --sidebar-icon-3: #10b981; /* Teal */
+  --sidebar-icon-4: #3b82f6; /* Blue */
+  --sidebar-icon-5: #6366f1; /* Indigo */
+  --sidebar-icon-6: #8b5cf6; /* Violet */
+  --sidebar-icon-7: #ec4899; /* Pink */
+  --sidebar-icon-8: #f43f5e; /* Red */
+  --sidebar-icon-9: #f87171; /* Salmon */
+  --sidebar-icon-10: #fbbf24; /* Yellow */
+  --sidebar-icon-11: #f59e0b; /* Amber */
+  --sidebar-icon-12: #ef4444; /* Red */
+  --sidebar-icon-13: #3b82f6; /* Blue */
+  --sidebar-icon-14: #6366f1; /* Indigo */
+  --sidebar-icon-15: #8b5cf6; /* Violet */
+  --sidebar-icon-16: #ec4899; /* Pink */
+
+
+  --sidebar-active: #807be6; /* Active Blue */
+  --sidebar-hover: #818cf8; /* Hover Blue */
+
+  --borderPrimary: #e2e8f0; /* Light border */
+  --borderSecondary: #edf2f7; /* Lighter border */
+
+  --status-success: #22c55e; /* Green */
+  --status-warning: #f59e0b; /* Yellow */
+  --status-error: #ef4444; /* Red */
+  --status-info: #3b82f6; /* Blue */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.dark {
+  /* Dark Theme with Indigo Touches */
+  --layer-1: #1a202c; /* Dark background */
+  --layer-2: #2d3748; /* Darker background */
+  --layer-3: #4a5568; /* Dark gray */
+
+  --bg-primary: #232c3a; /* Dark background */
+  --bg-primary-light: #374151; /* Darker gray */
+  --bg-secondary: #4b5563; /* Dark gray */
+  --bg-secondary-light: #6b7280; /* Lighter dark gray */
+
+  --btn-primary: #2563eb; /* Blue Indigo */
+  --btn-primary-hover: #1d4ed8; /* Darker Blue Indigo */
+  --btn-secondary: #4f46e5; /* Indigo */
+  --btn-secondary-hover: #4338ca; /* Dark Indigo */
+
+  --text-main: #e5e7eb; /* Light text */
+  --text-main-light: #d1d5db; /* Lighter text */
+  --text-accent: #9ca3af; /* Gray accent */
+  --text-accent-light: #6b7280; /* Darker gray accent */
+
+  --sidebar-icon-1: #ca8a04; /* Gold */
+  --sidebar-icon-2: #047857; /* Dark Green */
+  --sidebar-icon-3: #065f46; /* Dark Teal */
+  --sidebar-icon-4: #1d4ed8; /* Dark Blue */
+  --sidebar-icon-5: #4338ca; /* Darker Indigo */
+  --sidebar-icon-6: #6d28d9; /* Dark Violet */
+  --sidebar-icon-7: #db2777; /* Dark Pink */
+  --sidebar-icon-8: #be185d; /* Dark Red */
+  --sidebar-icon-9: #d97706; /* Dark Amber */
+  --sidebar-icon-10: #f59e0b; /* Darker Yellow */
+  --sidebar-icon-11: #fbbf24; /* Dark Yellow */
+  --sidebar-icon-12: #f43f5e; /* Darker Red */
+  --sidebar-icon-13: #1d4ed8; /* Dark Blue */
+  --sidebar-icon-14: #4338ca; /* Darker Indigo */
+  --sidebar-icon-15: #6d28d9; /* Dark Violet */
+  --sidebar-icon-16: #db2777; /* Dark Pink */
+
+
+  --sidebar-active: #1e3a8a; /* Darker Blue */
+  --sidebar-hover: #1c1c1e; /* Near Black */
+
+  --borderPrimary: #374151; /* Darker gray */
+  --borderSecondary: #6b7280; /* Lighter dark gray */
+
+  --status-success: #16a34a; /* Dark Green */
+  --status-warning: #d97706; /* Dark Amber */
+  --status-error: #dc2626; /* Dark Red */
+  --status-info: #2563eb; /* Indigo */
+}
+
+.scifi {
+  /* Sci-Fi Theme */
+  --layer-1: #0d0f13; /* Near Black */
+  --layer-2: #16181d; /* Dark Gray */
+  --layer-3: #2a2f42; /* Light Gray */
+  
+  --bg-primary: #0d0f13; /* Near Black */
+  --bg-primary-light: #16181d; /* Dark Gray */
+  --bg-secondary: #1f2230; /* Mid Gray */
+  --bg-secondary-light: #2a2f42; /* Light Gray */
+
+  --btn-primary: #00c9a7; /* Neon Green */
+  --btn-primary-hover: #00e5b6; /* Brighter Neon Green */
+  --btn-secondary: #00bcd4; /* Neon Blue */
+  --btn-secondary-hover: #00d5f9; /* Brighter Neon Blue */
+
+  --text-main: #d1faff; /* Bright Cyan */
+  --text-main-light: #a8e6ff; /* Lighter Cyan */
+  --text-accent: #ff77a9; /* Neon Pink */
+  --text-accent-light: #ff99c5; /* Lighter Neon Pink */
+
+  --sidebar-icon-1: #ff3b30; /* Neon Red */
+  --sidebar-icon-2: #ff9500; /* Neon Orange */
+  --sidebar-icon-3: #ffcc00; /* Neon Yellow */
+  --sidebar-icon-4: #4cd964; /* Neon Green */
+  --sidebar-icon-5: #5ac8fa; /* Light Neon Blue */
+  --sidebar-icon-6: #5856d6; /* Neon Purple */
+  --sidebar-icon-7: #ff2d55; /* Neon Pink */
+  --sidebar-icon-8: #ff4965; /* Neon Red */
+  --sidebar-icon-9: #ff9500; /* Neon Orange */
+  --sidebar-icon-10: #ffcc00; /* Neon Yellow */
+  --sidebar-icon-11: #4cd964; /* Neon Green */
+  --sidebar-icon-12: #ff3b30; /* Neon Red */
+  --sidebar-icon-13: #5ac8fa; /* Light Neon Blue */
+  --sidebar-icon-14: #5856d6; /* Neon Purple */
+  --sidebar-icon-15: #ff2d55; /* Neon Pink */
+  --sidebar-icon-16: #ff4965; /* Neon Red */
+  
+
+  --sidebar-active: #1f2230; /* Bright Blue */
+  --sidebar-hover: #3a4046; /* Darker Blue */
+
+  --borderPrimary: #1f2230; /* Mid Gray */
+  --borderSecondary: #2a2f42; /* Light Gray */
+
+  --status-success: #4cd964; /* Bright Green */
+  --status-warning: #ffcc00; /* Bright Yellow */
+  --status-error: #ff3b30; /* Bright Red */
+  --status-info: #00bcd4; /* Bright Cyan */
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
 }
 
 body {
